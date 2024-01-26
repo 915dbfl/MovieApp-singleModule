@@ -76,6 +76,8 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
     kapt("com.google.dagger:hilt-android-compiler:2.46.1")
 
+    // Timber
+    implementation("com.jakewharton.timber:timber:5.0.1")
 
     // Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
