@@ -2,6 +2,9 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("androidx.navigation.safeargs.kotlin")
+    id("dagger.hilt.android.plugin")
+    id("kotlin-android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -31,11 +34,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -67,6 +70,12 @@ dependencies {
 
     // Coil
     implementation("io.coil-kt:coil-compose:2.2.0")
+
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.46.1")
+    implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
+    kapt("com.google.dagger:hilt-android-compiler:2.46.1")
+
 
     // Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
