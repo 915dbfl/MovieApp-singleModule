@@ -3,9 +3,11 @@ package kr.co.fastcampus.part4plus.movieapp.features.feed.data.mapper
 import kr.co.fastcampus.part4plus.movieapp.features.common.entity.CategoryEntity
 import kr.co.fastcampus.part4plus.movieapp.features.common.entity.EntityWrapper
 import kr.co.fastcampus.part4plus.movieapp.features.common.entity.MovieDetailEntity
+import kr.co.fastcampus.part4plus.movieapp.features.common.mapper.BaseMapper
 import kr.co.fastcampus.part4plus.movieapp.features.common.network.model.MovieResponse
 import kr.co.fastcampus.part4plus.movieapp.features.feed.data.FeedConstants
 import kr.co.fastcampus.part4plus.movieapp.features.feed.domain.enum.SortOrder
+import kr.co.fastcampus.part4plus.movieapp.libraries.storage.IStorage
 import javax.inject.Inject
 
 class CategoryMapper @Inject constructor(
