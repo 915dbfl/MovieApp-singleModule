@@ -39,7 +39,9 @@ class FeedFragment: BaseFragment() {
                 ) {
                     FeedScreen(
                         feedStateHolder = viewModel.output.feedState.collectAsState(),
-                        input = viewModel.input
+                        input = viewModel.input,
+                        buttonColor = themeViewModel.nextColorState.collectAsState(),
+                        changeAppColor = { themeViewModel.toggleColorSet()}
                     )
                 }
             }
