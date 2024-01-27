@@ -8,7 +8,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kr.co.fastcampus.part4plus.movieapp.features.common.entity.EntityWrapper
 import kr.co.fastcampus.part4plus.movieapp.features.common.repository.MovieRepository
+import kr.co.fastcampus.part4plus.movieapp.features.feed.domain.usecase.IGetFeedCategoryUseCase
 import kr.co.fastcampus.part4plus.movieapp.features.feed.presentation.input.IFeedViewModelInput
 import kr.co.fastcampus.part4plus.movieapp.features.feed.presentation.output.FeedState
 import kr.co.fastcampus.part4plus.movieapp.features.feed.presentation.output.FeedUiEffect
@@ -17,8 +19,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FeedViewModel @Inject constructor(
-    private val movieRepository: MovieRepository
+    private val getFeedCategoryUseCase: IGetFeedCategoryUseCase
 ): ViewModel(), IFeedViewModelOutput, IFeedViewModelInput {
+
+    val output: IFeedViewModelOutput = this
+    val input: IFeedViewModelInput = this
 
     // 화면에 보여주기 위한 Flow
     private val _feedState: MutableStateFlow<FeedState> =
@@ -31,9 +36,29 @@ class FeedViewModel @Inject constructor(
     override val feedUiEffect: SharedFlow<FeedUiEffect>
         get() = _feedUiEffect
 
-    fun getMovieList() {
+    init {
+        fetchFeed()
+    }
+
+    private fun fetchFeed() {
         viewModelScope.launch {
-            movieRepository.getMovieList()
+            // 실패했을 떄 데이터를 다시 한 번 가져오는 것까지 고려
+            _feedState.value = FeedState.Loading
+
+            val categories = getFeedCategoryUseCase()
+            _feedState.value = when(categories) {
+                is EntityWrapper.Success -> {
+                    FeedState.Main(
+                        categories = categories.entity
+                    )
+                }
+                is EntityWrapper.Fail -> {
+                    FeedState.Failed(
+                        reason = categories.error.message ?: "Unkonwn Error"
+                    )
+                }
+            }
+
         }
     }
 
