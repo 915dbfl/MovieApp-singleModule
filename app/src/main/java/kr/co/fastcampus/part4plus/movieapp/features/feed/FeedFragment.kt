@@ -56,9 +56,9 @@ class FeedFragment: Fragment() {
                         }
 
                         is FeedUiEffect.OpenInfoDialog -> {
-//                            navController.safeNavigate(
-//                                FeedFragmentDirections.actionFeedToInfo()
-//                            )
+                            navController.safeNavigate(
+                                FeedFragmentDirections.actionFeedToInfo()
+                            )
                         }
                     }
                 }

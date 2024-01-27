@@ -75,11 +75,11 @@ fun FeedScreen(
                     )
                 },
                 actions = {
-//                    AppBarMenu(
+                    AppBarMenu(
 //                        btnColor = btnColor,
 //                        changeAppColor = changeAppColor,
-//                        input = input
-//                    )
+                        input = input
+                    )
                 }
             )
         }
@@ -93,8 +93,8 @@ fun FeedScreen(
 
 @Composable
 fun AppBarMenu(
-    btnColor: Color,
-    changeAppColor: () -> Unit,
+//    btnColor: Color,
+//    changeAppColor: () -> Unit,
     input: IFeedViewModelInput
 ) {
     Row(
@@ -102,18 +102,18 @@ fun AppBarMenu(
             end = COMMON_HORIZONTAL_PADDING
         )
     ) {
-        IconButton(
-            onClick = {
-                changeAppColor()
-            }
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(40.dp)
-                    .clip(CircleShape)
-                    .background(color = btnColor)
-            )
-        }
+//        IconButton(
+//            onClick = {
+//                changeAppColor()
+//            }
+//        ) {
+//            Box(
+//                modifier = Modifier
+//                    .size(40.dp)
+//                    .clip(CircleShape)
+//                    .background(color = btnColor)
+//            )
+//        }
 
         IconButton(
             onClick = {
