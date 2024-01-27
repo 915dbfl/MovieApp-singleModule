@@ -18,6 +18,7 @@ import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kr.co.fastcampus.part4plus.movieapp.BaseFragment
 import kr.co.fastcampus.part4plus.movieapp.features.detail.presentation.MovieDetailScreen
 import kr.co.fastcampus.part4plus.movieapp.features.detail.presentation.MovieDetailViewModel
 import kr.co.fastcampus.part4plus.movieapp.features.detail.presentation.output.DetailUiEffect
@@ -25,7 +26,7 @@ import kr.co.fastcampus.part4plus.movieapp.ui.navigation.safeNavigate
 import kr.co.fastcampus.part4plus.movieapp.ui.theme.MovieAppTheme
 
 @AndroidEntryPoint
-class DetailFragment: Fragment() {
+class DetailFragment: BaseFragment() {
     private val viewModel: MovieDetailViewModel by viewModels()
     private val args: DetailFragmentArgs by navArgs()
 
@@ -38,7 +39,9 @@ class DetailFragment: Fragment() {
         init()
         return ComposeView(requireContext()).apply {
             setContent {
-                MovieAppTheme {
+                MovieAppTheme(
+                    themeState = themeViewModel.themeState.collectAsState()
+                ) {
                     MovieDetailScreen(
                         movieDetailState = viewModel.outputs.detailState.collectAsState(),
                         input = viewModel.inputs

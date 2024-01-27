@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kr.co.fastcampus.part4plus.movieapp.BaseFragment
 import kr.co.fastcampus.part4plus.movieapp.features.feed.presentation.output.FeedUiEffect
 import kr.co.fastcampus.part4plus.movieapp.features.feed.presentation.screen.FeedScreen
 import kr.co.fastcampus.part4plus.movieapp.features.feed.presentation.viewmodel.FeedViewModel
@@ -23,7 +24,7 @@ import kr.co.fastcampus.part4plus.movieapp.ui.navigation.safeNavigate
 import kr.co.fastcampus.part4plus.movieapp.ui.theme.MovieAppTheme
 
 @AndroidEntryPoint
-class FeedFragment: Fragment() {
+class FeedFragment: BaseFragment() {
     private val viewModel by viewModels<FeedViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +34,9 @@ class FeedFragment: Fragment() {
         observeUiEffects()
         return ComposeView(requireContext()).apply {
             setContent {
-                MovieAppTheme {
+                MovieAppTheme(
+                    themeState = themeViewModel.themeState.collectAsState()
+                ) {
                     FeedScreen(
                         feedStateHolder = viewModel.output.feedState.collectAsState(),
                         input = viewModel.input
